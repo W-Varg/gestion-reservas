@@ -2,7 +2,12 @@
   "name": "app-cqrs",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "W-Varg",
+  "contact": {
+    "name": "Wilver",
+    "url": "",
+    "email": ""
+  },
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

@@ -1,0 +1,40 @@
+src/
+├── app.module.ts
+├── main.ts
+│
+├── modules/
+│   ├── usuarios/
+│   │   ├── usuarios.module.ts
+│   │   ├── usuarios.service.ts
+│   │   ├── usuarios.controller.ts
+│   │   ├── entities/
+│   │   │   └── usuario.entity.ts
+│   │   ├── dto/
+│   │   │   ├── create-usuario.dto.ts
+│   │   │   └── update-usuario.dto.ts
+│   │   └── repositories/
+│   │       └── usuarios.repository.ts
+│   │
+│   ├── espacios/
+│   │   └── ... (estructura similar)
+│   │
+│   ├── reservas/
+│   │   └── ... (estructura similar)
+│   │
+│   └── notificaciones/
+│       └── ... (estructura similar)
+│
+├── common/
+│   ├── database/
+│   │   ├── prisma.service.ts
+│   │   └── prisma.module.ts
+│   │
+│   └── utils/
+│       └── ...
+│
+└── application/  # Capa de casos de uso
+    ├── reservar-espacio/
+    │   ├── reservar-espacio.service.ts
+    │   └── dto/
+    │       └── reservar-espacio.dto.ts
+    └── ...
