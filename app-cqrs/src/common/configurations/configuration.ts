@@ -1,6 +1,6 @@
 import { join } from 'path';
-import { IPackageJson } from 'src/shared/helpers/swagger.helper';
 import { readFileSync } from 'fs';
+import { IPackageJson } from '../utils/swagger.helper';
 
 export default () => {
   const packageJsonPath = join(process.cwd(), 'package.json');
