@@ -1,3 +1,102 @@
+# Sistema de Reservas para Espacios Comunitarios
+
+Este proyecto es un sistema de reservas para espacios comunitarios desarrollado con NestJS y Prisma ORM, siguiendo una arquitectura modular.
+
+## Características
+
+- Registro y gestión de usuarios
+- Gestión de espacios (salones, auditorios, canchas)
+- Sistema de reservas con verificación de disponibilidad
+- Gestión de estados de reservas (pendiente, confirmada, cancelada)
+
+## Requisitos
+
+- Node.js (v14 o superior)
+- PostgreSQL
+- Yarn o npm
+
+## Instalación
+
+1. Clonar el repositorio:
+```bash
+git clone <url-del-repositorio>
+cd app-modular
+```
+
+2. Instalar dependencias:
+```bash
+yarn install
+```
+
+3. Configurar variables de entorno:
+Crear un archivo `.env` en la raíz del proyecto con el siguiente contenido:
+```
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/community_spaces?schema=public"
+PORT=3000
+```
+
+4. Ejecutar las migraciones de la base de datos:
+```bash
+npx prisma migrate dev
+```
+
+5. Iniciar el servidor:
+```bash
+yarn start:dev
+```
+
+## Estructura del Proyecto
+
+```
+src/
+├── modules/
+│   ├── users/           # Módulo de usuarios
+│   ├── spaces/          # Módulo de espacios
+│   └── reservations/    # Módulo de reservas
+├── shared/
+│   └── services/        # Servicios compartidos
+└── app.module.ts        # Módulo principal
+```
+
+## API Endpoints
+
+### Usuarios
+- GET /users - Listar usuarios
+- GET /users/:id - Obtener usuario por ID
+- POST /users - Crear usuario
+- PUT /users/:id - Actualizar usuario
+- DELETE /users/:id - Eliminar usuario
+
+### Espacios
+- GET /spaces - Listar espacios
+- GET /spaces/:id - Obtener espacio por ID
+- POST /spaces - Crear espacio
+- PUT /spaces/:id - Actualizar espacio
+- DELETE /spaces/:id - Eliminar espacio
+
+### Reservas
+- GET /reservations - Listar reservas
+- GET /reservations/:id - Obtener reserva por ID
+- POST /reservations - Crear reserva
+- PUT /reservations/:id/status - Actualizar estado de reserva
+- DELETE /reservations/:id - Eliminar reserva
+
+## Arquitectura
+
+El proyecto sigue una arquitectura modular donde cada módulo es independiente y contiene sus propios:
+- Controladores
+- Servicios
+- DTOs
+- Entidades
+
+## Próximos Pasos
+
+- Implementar autenticación y autorización
+- Agregar validación de datos con DTOs
+- Implementar pruebas unitarias
+- Agregar documentación con Swagger
+- Implementar sistema de notificaciones
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
