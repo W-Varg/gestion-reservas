@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { CreateSpaceCommand } from './commands/create-space.command';
 import { UpdateSpaceCommand } from './commands/update-space.command';
 import { DeleteSpaceCommand } from './commands/delete-space.command';
@@ -9,6 +9,7 @@ import { GetSpacesQuery } from './queries/get-spaces.query';
 import { GetSpaceAvailabilityQuery } from './queries/get-space-availability.query';
 import { SpaceDto } from './dto/space.dto';
 
+@ApiBearerAuth()
 @ApiTags('spaces')
 @Controller('spaces')
 export class SpacesController {

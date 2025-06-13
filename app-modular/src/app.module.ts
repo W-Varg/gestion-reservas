@@ -4,7 +4,7 @@ import { UsersModule } from './modules/users/users.module';
 import { SpacesModule } from './modules/spaces/spaces.module';
 import { ReservationsModule } from './modules/reservations/reservations.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
-import { PrismaService } from './shared/services/prisma.service';
+import { PrismaService } from './common/database/prisma.service';
 import { AuthModule } from './modules/auth/auth.module';
 import configuration from './common/configurations/configuration';
 import { APP_GUARD } from '@nestjs/core';

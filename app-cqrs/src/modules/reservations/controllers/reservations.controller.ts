@@ -4,7 +4,9 @@ import { CreateReservationCommand } from '../commands/create-reservation.command
 import { UpdateReservationStatusCommand } from '../commands/update-reservation-status.command';
 import { GetReservationQuery } from '../queries/get-reservation.query';
 import { GetReservationsQuery } from '../queries/get-reservations.query';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('reservations')
 export class ReservationsController {
   constructor(

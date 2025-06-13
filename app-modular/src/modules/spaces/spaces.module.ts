@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { SpacesController } from './controllers/spaces.controller';
-import { SpacesService } from './services/spaces.service';
-import { PrismaService } from '../../shared/services/prisma.service';
+import { SpacesController } from './spaces.controller';
+import { PrismaService } from '../../common/database/prisma.service';
+import { SpacesService } from './spaces.service';
 
 @Module({
   controllers: [SpacesController],

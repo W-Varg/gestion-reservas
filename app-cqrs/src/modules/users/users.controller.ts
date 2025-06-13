@@ -6,7 +6,9 @@ import { DeleteUserCommand } from './commands/delete-user.command';
 import { GetUserQuery } from './queries/get-user.query';
 import { GetUsersQuery } from './queries/get-users.query';
 import { User } from '@prisma/client';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(

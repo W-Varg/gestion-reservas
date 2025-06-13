@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { PrismaService } from '../../../shared/services/prisma.service';
+import { PrismaService } from '../../common/database/prisma.service';
 import { Reservation, ReservationStatus } from '@prisma/client';
-import { NotificationsService } from '../../notifications/services/notifications.service';
+import { NotificationsService } from '../notifications/services/notifications.service';
 
 @Injectable()
 export class ReservationsService {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../../shared/services/prisma.service';
 import { Space, SpaceType } from '@prisma/client';
+import { PrismaService } from 'src/common/database/prisma.service';
 
 @Injectable()
 export class SpacesService {

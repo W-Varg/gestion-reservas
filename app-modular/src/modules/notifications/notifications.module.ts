@@ -1,6 +1,6 @@
 import { NotificationsService } from './services/notifications.service';
 import { Module } from '@nestjs/common';
-import { PrismaService } from '../../shared/services/prisma.service';
+import { PrismaService } from '../../common/database/prisma.service';
 import { MailerConfigModule } from '../mailer/mailer.module';
 
 @Module({

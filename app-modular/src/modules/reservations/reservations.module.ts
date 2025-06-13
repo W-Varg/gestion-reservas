@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ReservationsController } from './controllers/reservations.controller';
-import { ReservationsService } from './services/reservations.service';
-import { PrismaService } from '../../shared/services/prisma.service';
+import { ReservationsController } from './reservations.controller';
+import { ReservationsService } from './reservations.service';
+import { PrismaService } from '../../common/database/prisma.service';
 import { UsersModule } from '../users/users.module';
 import { SpacesModule } from '../spaces/spaces.module';
 import { NotificationsModule } from '../notifications/notifications.module';

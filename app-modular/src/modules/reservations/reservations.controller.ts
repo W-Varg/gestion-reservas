@@ -1,21 +1,24 @@
 import { Controller, Get, Post, Body, Param, Put, Delete, Query } from '@nestjs/common';
-import { ReservationsService } from '../services/reservations.service';
+import { ReservationsService } from './reservations.service';
 import { Reservation, ReservationStatus } from '@prisma/client';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { FindReservationsDto } from './dto/find-reservations.dto';
 
+@ApiTags('reservations')
 @Controller('reservations')
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
+  @ApiBearerAuth()
   @Get()
-  async findAll(
-    @Query('userId') userId?: string,
-    @Query('spaceId') spaceId?: string,
-  ): Promise<Reservation[]> {
-    if (userId) {
-      return this.reservationsService.findByUser(userId);
+  @ApiOperation({ summary: 'Obtener todas las reservas' })
+  @ApiResponse({ status: 200, description: 'Lista de reservas obtenida exitosamente' })
+  async findAll(@Query() query: FindReservationsDto): Promise<Reservation[]> {
+    if (query.userId) {
+      return this.reservationsService.findByUser(query.userId);
     }
-    if (spaceId) {
-      return this.reservationsService.findBySpace(spaceId);
+    if (query.spaceId) {
+      return this.reservationsService.findBySpace(query.spaceId);
     }
     return this.reservationsService.findAll();
   }

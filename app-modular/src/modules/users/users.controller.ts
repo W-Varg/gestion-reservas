@@ -3,13 +3,12 @@ import { UsersService } from './users.service';
 import { User } from '@prisma/client';
 import { CreateUserDto, UpdateUserDto } from './dto/users.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { Public } from '../auth/public.decorator';
 
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @ApiBearerAuth()
   @Get()
   async findAll(): Promise<User[]> {
     return this.usersService.findAll();
