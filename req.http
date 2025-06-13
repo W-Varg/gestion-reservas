@@ -1,0 +1,65 @@
+@url = http://172.27.38.53:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJzdWIiOiJlNDZiYTVlYS02Nzg4LTRjMzYtOTMxYy04MWM4M2NkY2FkZWMiLCJpYXQiOjE3NDk4NTQ2MTMsImV4cCI6MTc0OTk0MTAxM30.R9LehJyEr8m5PL-vobVTlj7HcYp_W8J36y9GopBw-bI
+
+
+### Register
+curl -X 'POST' \
+  '{{url}}/auth/register' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "email": "test@test.com",
+  "password": "password123",
+  "name": "John Doe"
+}'
+
+### Login
+curl -X 'POST' \
+  '{{url}}/auth/login' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "email": "test@test.com",
+  "password": "password123"
+}'
+
+### Get user by id
+curl -X 'GET' \
+  'http://172.27.38.53:3000/auth/profile' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer {{token}}'
+
+
+### Get all spaces
+curl -X 'GET' \
+  '{{url}}/spaces' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer {{token}}'
+
+### Get space by id
+
+curl -X 'GET' \
+  '{{url}}/spaces/28e6bc6b-f3d9-4f39-9f04-7fa3bc6e4c6c' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer {{token}}'
+
+### Realizar la reserva
+curl -X 'POST' \
+  '{{url}}/reservations' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer {{token}}' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "userId": "e46ba5ea-6788-4c36-931c-81c83cdcadec",
+  "spaceId": "28e6bc6b-f3d9-4f39-9f04-7fa3bc6e4c6c",
+  "startTime": "2027-06-14T10:00:00Z",
+  "endTime": "2027-06-14T11:00:00Z",
+  "notes": "Reserva de prueba"
+}
+'
+
+### Get all reservations
+curl -X 'GET' \
+  '{{url}}/reservations' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer {{token}}'

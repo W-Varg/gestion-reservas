@@ -1,8 +1,11 @@
 import { Controller, Get, Post, Body, Param, Put, Delete, Query } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
-import { Reservation, ReservationStatus } from '@prisma/client';
+import { Reservation } from '@prisma/client';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateReservationDto } from './dto/create-reservation.dto';
+import { UpdateReservationDto } from './dto/create-reservation.dto';
 import { FindReservationsDto } from './dto/find-reservations.dto';
+import { UpdateReservationStatusDto } from './dto/update-reservation-status.dto';
 
 @ApiTags('reservations')
 @Controller('reservations')
@@ -23,27 +26,50 @@ export class ReservationsController {
     return this.reservationsService.findAll();
   }
 
+  @ApiBearerAuth()
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Reservation | null> {
+  @ApiOperation({ summary: 'Obtener una reserva por ID' })
+  @ApiResponse({ status: 200, description: 'Reserva encontrada exitosamente' })
+  async findOne(@Param('id') id: string): Promise<Reservation> {
     return this.reservationsService.findOne(id);
   }
 
+  @ApiBearerAuth()
   @Post()
-  async create(
-    @Body() data: { date: Date; startTime: Date; endTime: Date; userId: string; spaceId: string },
-  ): Promise<Reservation> {
-    return this.reservationsService.create(data);
+  @ApiOperation({ summary: 'Crear una nueva reserva' })
+  @ApiResponse({ status: 201, description: 'Reserva creada exitosamente' })
+  async create(@Body() createReservationDto: CreateReservationDto): Promise<Reservation> {
+    console.log('execute');
+
+    return this.reservationsService.create(createReservationDto);
   }
 
+  @ApiBearerAuth()
+  @Put(':id')
+  @ApiOperation({ summary: 'Actualizar una reserva' })
+  @ApiResponse({ status: 200, description: 'Reserva actualizada exitosamente' })
+  async update(
+    @Param('id') id: string,
+    @Body() updateReservationDto: UpdateReservationDto,
+  ): Promise<Reservation> {
+    return this.reservationsService.update(id, updateReservationDto);
+  }
+
+  @ApiBearerAuth()
   @Put(':id/status')
+  @ApiOperation({ summary: 'Actualizar el estado de una reserva' })
+  @ApiResponse({ status: 200, description: 'Estado de la reserva actualizado exitosamente' })
   async updateStatus(
     @Param('id') id: string,
-    @Body('status') status: ReservationStatus,
+    @Body() updateStatusDto: UpdateReservationStatusDto,
   ): Promise<Reservation> {
-    return this.reservationsService.updateStatus(id, status);
+    return this.reservationsService.updateStatus(id, updateStatusDto.status);
   }
 
+  @ApiBearerAuth()
   @Delete(':id')
+  @ApiOperation({ summary: 'Eliminar una reserva' })
+  @ApiResponse({ status: 200, description: 'Reserva eliminada exitosamente' })
   async delete(@Param('id') id: string): Promise<Reservation> {
     return this.reservationsService.delete(id);
   }

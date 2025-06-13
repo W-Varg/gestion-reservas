@@ -9,7 +9,7 @@ export class NotificationsService {
   constructor(private readonly mailerService: MailerService) {}
 
   async sendReservationConfirmation(
-    reservation: Reservation & { user: User; space: Space },
+    reservation: Reservation & { user: { email: string; name: string }; space: { name: string } },
   ): Promise<void> {
     try {
       await this.mailerService.sendMail({
