@@ -39,8 +39,6 @@ export class ReservationsController {
   @ApiOperation({ summary: 'Crear una nueva reserva' })
   @ApiResponse({ status: 201, description: 'Reserva creada exitosamente' })
   async create(@Body() createReservationDto: CreateReservationDto): Promise<Reservation> {
-    console.log('execute');
-
     return this.reservationsService.create(createReservationDto);
   }
 

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/create-reservation.dto';
@@ -68,11 +68,8 @@ export class ReservationsService {
         ],
       },
     });
-    console.log(overlappingReservation);
 
     if (overlappingReservation) {
-      console.log('execute');
-
       throw new BadRequestException('Ya existe una reserva en el horario seleccionado');
     }
     try {
@@ -85,18 +82,17 @@ export class ReservationsService {
         status: ReservationStatus.PENDING,
         notes,
       };
-      console.log(data);
 
       const reservation = await this.prisma.reservation.create({
         data,
         include: { user: true, space: true },
       });
-      if (reservation) {
-        // await this.notificationsService.sendReservationConfirmation(reservation);
+      if (reservation?.user?.email) {
+        await this.notificationsService.sendReservationConfirmation(reservation.user.email);
       }
       return reservation;
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       throw error;
     }
   }
@@ -138,7 +134,9 @@ export class ReservationsService {
       },
       include: { user: true, space: true },
     });
-    // await this.notificationsService.sendReservationStatusUpdate(updatedReservation);
+    if (updatedReservation.user?.email) {
+      await this.notificationsService.sendReservationStatusUpdate(updatedReservation.user.email);
+    }
     return updatedReservation;
   }
 
@@ -152,7 +150,9 @@ export class ReservationsService {
       data: { status },
       include: { user: true, space: true },
     });
-    // await this.notificationsService.sendReservationStatusUpdate(updatedReservation);
+    if (updatedReservation.user?.email) {
+      this.notificationsService.sendReservationStatusUpdate(updatedReservation.user.email);
+    }
     return updatedReservation;
   }
 
@@ -162,7 +162,9 @@ export class ReservationsService {
       where: { id },
       include: { user: true, space: true },
     });
-    // await this.notificationsService.sendReservationCancellation(reservation);
+    if (reservation.user?.email) {
+      this.notificationsService.sendReservationCancellation(reservation.user?.email);
+    }
     return reservation;
   }
 }

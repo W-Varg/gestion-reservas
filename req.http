@@ -52,8 +52,8 @@ curl -X 'POST' \
   -d '{
   "userId": "e46ba5ea-6788-4c36-931c-81c83cdcadec",
   "spaceId": "28e6bc6b-f3d9-4f39-9f04-7fa3bc6e4c6c",
-  "startTime": "2027-06-14T10:00:00Z",
-  "endTime": "2027-06-14T11:00:00Z",
+  "startTime": "2025-06-14T10:00:00Z",
+  "endTime": "2025-06-14T11:00:00Z",
   "notes": "Reserva de prueba"
 }
 '

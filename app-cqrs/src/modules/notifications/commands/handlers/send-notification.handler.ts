@@ -7,7 +7,6 @@ import { MailerService } from '@nestjs-modules/mailer';
 @Injectable()
 @CommandHandler(SendNotificationCommand)
 export class SendNotificationHandler implements ICommandHandler<SendNotificationCommand> {
-  private readonly logger = new Logger(SendNotificationHandler.name);
 
   constructor(
     private readonly mailerService: MailerService,
@@ -42,10 +41,10 @@ export class SendNotificationHandler implements ICommandHandler<SendNotification
         html,
       });
 
-      this.logger.log(`Email de ${type} enviado a ${reservation.user.email}`);
+      Logger.log(`Email de ${type} enviado a ${reservation.user.email}`);
       this.eventBus.publish(new NotificationSentEvent(type, reservation));
     } catch (error) {
-      this.logger.error(`Error al enviar email de ${type}: ${error.message}`);
+      Logger.error(`Error al enviar email de ${type}: ${error.message}`);
       throw error;
     }
   }

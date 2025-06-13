@@ -9,7 +9,7 @@ export class NotificationSentHandler implements IEventHandler<NotificationSentEv
 
   async handle(event: NotificationSentEvent) {
     const { type, reservation } = event;
-    this.logger.log(
+    Logger.log(
       `Notificación de tipo ${type} enviada para la reserva ${reservation.id} al usuario ${reservation.user.email}`,
     );
   }
