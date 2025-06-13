@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateSpaceCommand } from '../commands/create-space.command';
 import { GetSpaceQuery } from '../queries/get-space.query';
@@ -51,13 +42,8 @@ export class SpacesController {
   @ApiOperation({ summary: 'Actualizar un espacio' })
   @ApiResponse({ status: 200, description: 'Espacio actualizado' })
   @ApiResponse({ status: 404, description: 'Espacio no encontrado' })
-  update(
-    @Param('id') id: string,
-    @Body() updateSpaceDto: Partial<CreateSpaceCommand>,
-  ) {
-    return this.commandBus.execute(
-      new CreateSpaceCommand(),
-    );
+  update(@Param('id') id: string, @Body() updateSpaceDto: Partial<CreateSpaceCommand>) {
+    return this.commandBus.execute(new CreateSpaceCommand());
   }
 
   @Delete(':id')
@@ -67,4 +53,4 @@ export class SpacesController {
   remove(@Param('id') id: string) {
     return this.commandBus.execute(new CreateSpaceCommand());
   }
-} 
+}

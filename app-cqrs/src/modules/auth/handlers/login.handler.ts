@@ -26,4 +26,4 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
     const access_token = await this.jwtService.signAsync(payload);
     return { access_token };
   }
-} 
+}

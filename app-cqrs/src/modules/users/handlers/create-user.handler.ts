@@ -26,4 +26,4 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
       },
     });
   }
-} 
+}

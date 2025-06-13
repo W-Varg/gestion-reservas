@@ -14,9 +14,9 @@ export class CreateSpaceHandler implements ICommandHandler<CreateSpaceCommand> {
         name,
         description: description ?? '',
         capacity,
-        type: type as SpaceType,
+        type: type,
       },
     });
     return space;
   }
-} 
+}

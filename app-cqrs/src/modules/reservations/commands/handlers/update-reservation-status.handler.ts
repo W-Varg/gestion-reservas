@@ -4,7 +4,9 @@ import { PrismaService } from '../../../../prisma/prisma.service';
 import { ReservationStatus } from '@prisma/client';
 
 @CommandHandler(UpdateReservationStatusCommand)
-export class UpdateReservationStatusHandler implements ICommandHandler<UpdateReservationStatusCommand> {
+export class UpdateReservationStatusHandler
+  implements ICommandHandler<UpdateReservationStatusCommand>
+{
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(command: UpdateReservationStatusCommand) {

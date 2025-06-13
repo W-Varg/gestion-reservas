@@ -23,4 +23,4 @@ export class GetReservationHandler implements IQueryHandler<GetReservationQuery>
 
     return reservation;
   }
-} 
+}

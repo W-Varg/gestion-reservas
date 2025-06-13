@@ -19,4 +19,4 @@ export class GetSpaceHandler implements IQueryHandler<GetSpaceQuery> {
 
     return space;
   }
-} 
+}

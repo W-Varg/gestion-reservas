@@ -8,9 +8,6 @@ import { GetReservationHandler } from './handlers/get-reservation.handler';
 @Module({
   imports: [CqrsModule, PrismaModule],
   controllers: [ReservationsController],
-  providers: [
-    CreateReservationHandler,
-    GetReservationHandler,
-  ],
+  providers: [CreateReservationHandler, GetReservationHandler],
 })
 export class ReservationsModule {}

@@ -19,4 +19,4 @@ export class GetUserHandler implements IQueryHandler<GetUserQuery> {
 
     return user;
   }
-} 
+}

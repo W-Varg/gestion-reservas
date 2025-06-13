@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateReservationCommand } from '../commands/create-reservation.command';
 import { GetReservationQuery } from '../queries/get-reservation.query';
@@ -50,13 +41,8 @@ export class ReservationsController {
   @ApiOperation({ summary: 'Actualizar una reserva' })
   @ApiResponse({ status: 200, description: 'Reserva actualizada' })
   @ApiResponse({ status: 404, description: 'Reserva no encontrada' })
-  update(
-    @Param('id') id: string,
-    @Body() updateReservationDto: Partial<CreateReservationCommand>,
-  ) {
-    return this.commandBus.execute(
-      new CreateReservationCommand(),
-    );
+  update(@Param('id') id: string, @Body() updateReservationDto: Partial<CreateReservationCommand>) {
+    return this.commandBus.execute(new CreateReservationCommand());
   }
 
   @Delete(':id')

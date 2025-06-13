@@ -7,7 +7,6 @@ import { MailerService } from '@nestjs-modules/mailer';
 @Injectable()
 @CommandHandler(SendNotificationCommand)
 export class SendNotificationHandler implements ICommandHandler<SendNotificationCommand> {
-
   constructor(
     private readonly mailerService: MailerService,
     private readonly eventBus: EventBus,

@@ -26,4 +26,4 @@ export class RegisterHandler implements ICommandHandler<RegisterCommand> {
     });
     return user;
   }
-} 
+}

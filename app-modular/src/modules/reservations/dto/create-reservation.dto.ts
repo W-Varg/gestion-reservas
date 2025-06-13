@@ -4,7 +4,7 @@ import { IsDateString, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 export class CreateReservationDto {
   @ApiProperty({
     description: 'ID del usuario que realiza la reserva',
-    example: '123e4567-e89b-12d3-a456-426614174000'
+    example: '123e4567-e89b-12d3-a456-426614174000',
   })
   @IsNotEmpty()
   @IsUUID()
@@ -12,7 +12,7 @@ export class CreateReservationDto {
 
   @ApiProperty({
     description: 'ID del espacio reservado',
-    example: '123e4567-e89b-12d3-a456-426614174000'
+    example: '123e4567-e89b-12d3-a456-426614174000',
   })
   @IsNotEmpty()
   @IsUUID()
@@ -20,7 +20,7 @@ export class CreateReservationDto {
 
   @ApiProperty({
     description: 'Fecha y hora de inicio de la reserva',
-    example: '2024-03-20T10:00:00Z'
+    example: '2024-03-20T10:00:00Z',
   })
   @IsNotEmpty()
   @IsDateString()
@@ -28,7 +28,7 @@ export class CreateReservationDto {
 
   @ApiProperty({
     description: 'Fecha y hora de fin de la reserva',
-    example: '2024-03-20T11:00:00Z'
+    example: '2024-03-20T11:00:00Z',
   })
   @IsNotEmpty()
   @IsDateString()
@@ -36,7 +36,7 @@ export class CreateReservationDto {
 
   @ApiProperty({
     description: 'Notas adicionales sobre la reserva',
-    example: 'Cliente VIP, requiere atención especial'
+    example: 'Cliente VIP, requiere atención especial',
   })
   @IsString()
   notes?: string;

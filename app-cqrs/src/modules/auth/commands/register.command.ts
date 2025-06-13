@@ -18,4 +18,4 @@ export class RegisterCommand {
     this.password = password;
     this.name = name;
   }
-} 
+}

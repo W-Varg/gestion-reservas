@@ -20,11 +20,6 @@ const QueryHandlers = [GetSpaceHandler, GetSpacesHandler, GetSpaceAvailabilityHa
 @Module({
   imports: [CqrsModule, PrismaModule],
   controllers: [SpacesController],
-  providers: [
-    CreateSpaceHandler,
-    GetSpaceHandler,
-    ...CommandHandlers,
-    ...QueryHandlers,
-  ],
+  providers: [CreateSpaceHandler, GetSpaceHandler, ...CommandHandlers, ...QueryHandlers],
 })
 export class SpacesModule {}

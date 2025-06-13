@@ -20,7 +20,7 @@ export class UpdateSpaceHandler implements ICommandHandler<UpdateSpaceCommand> {
     if (name) updateData.name = name;
     if (description) updateData.description = description;
     if (capacity) updateData.capacity = capacity;
-    if (type) updateData.type = type as SpaceType;
+    if (type) updateData.type = type;
 
     const space = await this.prisma.space.update({
       where: { id },
