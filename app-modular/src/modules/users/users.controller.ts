@@ -1,11 +1,15 @@
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { UsersService } from '../services/users.service';
+import { UsersService } from './users.service';
 import { User } from '@prisma/client';
+import { CreateUserDto, UpdateUserDto } from './dto/users.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { Public } from '../auth/public.decorator';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @ApiBearerAuth()
   @Get()
   async findAll(): Promise<User[]> {
     return this.usersService.findAll();
@@ -17,12 +21,12 @@ export class UsersController {
   }
 
   @Post()
-  async create(@Body() data: { email: string; password: string; name: string }): Promise<User> {
+  async create(@Body() data: CreateUserDto): Promise<User> {
     return this.usersService.create(data);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: Partial<User>): Promise<User> {
+  async update(@Param('id') id: string, @Body() data: UpdateUserDto): Promise<User> {
     return this.usersService.update(id, data);
   }
 
