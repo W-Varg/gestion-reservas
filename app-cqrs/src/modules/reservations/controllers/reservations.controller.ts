@@ -1,12 +1,22 @@
-import { Controller, Get, Post, Body, Param, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateReservationCommand } from '../commands/create-reservation.command';
-import { UpdateReservationStatusCommand } from '../commands/update-reservation-status.command';
 import { GetReservationQuery } from '../queries/get-reservation.query';
-import { GetReservationsQuery } from '../queries/get-reservations.query';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
+@ApiTags('reservations')
 @ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('reservations')
 export class ReservationsController {
   constructor(
@@ -14,37 +24,46 @@ export class ReservationsController {
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Post()
-  async create(@Body() createReservationDto: any) {
-    const command = new CreateReservationCommand(
-      createReservationDto.userId,
-      createReservationDto.spaceId,
-      new Date(createReservationDto.date),
-      new Date(createReservationDto.startTime),
-      new Date(createReservationDto.endTime),
-    );
-    return this.commandBus.execute(command);
-  }
-
   @Get()
-  async findAll(
-    @Query('userId') userId?: string,
-    @Query('spaceId') spaceId?: string,
-    @Query('status') status?: string,
-  ) {
-    const query = new GetReservationsQuery(userId, spaceId, status);
-    return this.queryBus.execute(query);
+  @ApiOperation({ summary: 'Obtener todas las reservas' })
+  @ApiResponse({ status: 200, description: 'Lista de reservas' })
+  findAll() {
+    return this.queryBus.execute(new GetReservationQuery());
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const query = new GetReservationQuery(id);
-    return this.queryBus.execute(query);
+  @ApiOperation({ summary: 'Obtener una reserva por ID' })
+  @ApiResponse({ status: 200, description: 'Reserva encontrada' })
+  @ApiResponse({ status: 404, description: 'Reserva no encontrada' })
+  findOne(@Param('id') id: string) {
+    return this.queryBus.execute(new GetReservationQuery());
   }
 
-  @Put(':id/status')
-  async updateStatus(@Param('id') id: string, @Body('status') status: string) {
-    const command = new UpdateReservationStatusCommand(id, status);
-    return this.commandBus.execute(command);
+  @Post()
+  @ApiOperation({ summary: 'Crear una nueva reserva' })
+  @ApiResponse({ status: 201, description: 'Reserva creada' })
+  create(@Body() createReservationDto: CreateReservationCommand) {
+    return this.commandBus.execute(new CreateReservationCommand());
+  }
+
+  @Put(':id')
+  @ApiOperation({ summary: 'Actualizar una reserva' })
+  @ApiResponse({ status: 200, description: 'Reserva actualizada' })
+  @ApiResponse({ status: 404, description: 'Reserva no encontrada' })
+  update(
+    @Param('id') id: string,
+    @Body() updateReservationDto: Partial<CreateReservationCommand>,
+  ) {
+    return this.commandBus.execute(
+      new CreateReservationCommand(),
+    );
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Eliminar una reserva' })
+  @ApiResponse({ status: 200, description: 'Reserva eliminada' })
+  @ApiResponse({ status: 404, description: 'Reserva no encontrada' })
+  remove(@Param('id') id: string) {
+    return this.commandBus.execute(new CreateReservationCommand());
   }
 }

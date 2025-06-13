@@ -8,6 +8,8 @@ import { GetSpaceQuery } from './queries/get-space.query';
 import { GetSpacesQuery } from './queries/get-spaces.query';
 import { GetSpaceAvailabilityQuery } from './queries/get-space-availability.query';
 import { SpaceDto } from './dto/space.dto';
+// import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+// @UseGuards(JwtAuthGuard)
 
 @ApiBearerAuth()
 @ApiTags('spaces')
@@ -32,10 +34,8 @@ export class SpacesController {
     @Param('id') id: string,
     @Body() updateSpaceDto: Partial<CreateSpaceCommand>,
   ): Promise<SpaceDto> {
-    const { name, description, capacity, location } = updateSpaceDto;
-    return this.commandBus.execute(
-      new UpdateSpaceCommand(id, name, description, capacity, location),
-    );
+    const { name, description, capacity, type } = updateSpaceDto;
+    return this.commandBus.execute(new CreateSpaceCommand());
   }
 
   @Delete(':id')
@@ -46,10 +46,11 @@ export class SpacesController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get a space by id' })
-  @ApiResponse({ status: 200, description: 'Space found', type: SpaceDto })
-  async findOne(@Param('id') id: string): Promise<SpaceDto> {
-    return this.queryBus.execute(new GetSpaceQuery(id));
+  @ApiOperation({ summary: 'Obtener un espacio por ID' })
+  @ApiResponse({ status: 200, description: 'Espacio encontrado' })
+  @ApiResponse({ status: 404, description: 'Espacio no encontrado' })
+  findOne(@Param('id') id: string) {
+    return this.queryBus.execute(new GetSpaceQuery());
   }
 
   @Get()

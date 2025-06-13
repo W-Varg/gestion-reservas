@@ -1,24 +1,33 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { CqrsModule } from '@nestjs/cqrs';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
-import { ReservationsModule } from './modules/reservations/reservations.module';
-import { NotificationsModule } from './modules/notifications/notifications.module';
-import { MailerConfigModule } from './modules/notifications/mailer-config.module';
 import { SpacesModule } from './modules/spaces/spaces.module';
+import { ReservationsModule } from './modules/reservations/reservations.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import configuration from './common/configurations/configuration';
-import { PrismaService } from './shared/services/prisma.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ load: [configuration], isGlobal: true }),
-    CqrsModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1d' },
+    }),
+    PrismaModule,
+    AuthModule,
     UsersModule,
-    ReservationsModule,
-    NotificationsModule,
-    MailerConfigModule,
     SpacesModule,
+    ReservationsModule,
   ],
-  providers: [PrismaService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}

@@ -1,33 +1,33 @@
-import { CommandHandler, ICommandHandler, EventBus } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateUserCommand } from '../create-user.command';
-import { PrismaService } from '../../../../shared/services/prisma.service';
-import { UserCreatedEvent } from '../../events/user-created.event';
-import { Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
+import { PrismaService } from '../../../../prisma/prisma.service';
+import { BadRequestException } from '@nestjs/common';
+import * as bcrypt from 'bcryptjs';
 
-@Injectable()
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly eventBus: EventBus,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(command: CreateUserCommand) {
-    const { email, name, password, role } = command;
+    const { email, password, name } = command;
+
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      throw new BadRequestException('El email ya está registrado');
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await this.prisma.user.create({
       data: {
         email,
-        name,
         password: hashedPassword,
-        role,
+        name,
       },
     });
-
-    this.eventBus.publish(new UserCreatedEvent(user));
 
     return user;
   }

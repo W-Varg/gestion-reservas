@@ -1,31 +1,21 @@
-import { CommandHandler, ICommandHandler, EventBus } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateSpaceCommand } from '../create-space.command';
-import { PrismaService } from '../../../../shared/services/prisma.service';
-import { SpaceCreatedEvent } from '../../events/space-created.event';
-import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../../../prisma/prisma.service';
 
-@Injectable()
 @CommandHandler(CreateSpaceCommand)
 export class CreateSpaceHandler implements ICommandHandler<CreateSpaceCommand> {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly eventBus: EventBus,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(command: CreateSpaceCommand) {
-    const { name, description, capacity, location } = command;
-
+    const { name, description, capacity, type } = command;
     const space = await this.prisma.space.create({
       data: {
         name,
-        description,
+        description: description || '',
         capacity,
-        location,
+        type,
       },
     });
-
-    await this.eventBus.publish(new SpaceCreatedEvent(space));
-
     return space;
   }
 }

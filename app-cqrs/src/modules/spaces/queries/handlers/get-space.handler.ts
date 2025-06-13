@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetSpaceQuery } from '../get-space.query';
-import { PrismaService } from '../../../../shared/services/prisma.service';
+import { PrismaService } from '../../../../prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()

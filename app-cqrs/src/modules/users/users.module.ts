@@ -1,20 +1,17 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { PrismaService } from '../../shared/services/prisma.service';
-import { CreateUserHandler } from './commands/handlers/create-user.handler';
-import { UpdateUserHandler } from './commands/handlers/update-user.handler';
-import { DeleteUserHandler } from './commands/handlers/delete-user.handler';
-import { GetUserHandler } from './queries/handlers/get-user.handler';
-import { GetUsersHandler } from './queries/handlers/get-users.handler';
-import { UsersController } from './users.controller';
+import { UsersController } from './controllers/users.controller';
+import { CreateUserHandler } from './handlers/create-user.handler';
+import { GetUserHandler } from './handlers/get-user.handler';
+import { PrismaModule } from '../../prisma/prisma.module';
 
-const CommandHandlers = [CreateUserHandler, UpdateUserHandler, DeleteUserHandler];
-
-const QueryHandlers = [GetUserHandler, GetUsersHandler];
+const CommandHandlers = [CreateUserHandler];
+const QueryHandlers = [GetUserHandler];
 
 @Module({
-  imports: [CqrsModule],
+  imports: [CqrsModule, PrismaModule],
   controllers: [UsersController],
-  providers: [PrismaService, ...CommandHandlers, ...QueryHandlers],
+  providers: [...CommandHandlers, ...QueryHandlers],
+  exports: [...CommandHandlers, ...QueryHandlers],
 })
 export class UsersModule {}

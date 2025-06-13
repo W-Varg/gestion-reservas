@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler, EventBus } from '@nestjs/cqrs';
 import { DeleteSpaceCommand } from '../delete-space.command';
-import { PrismaService } from '../../../../shared/services/prisma.service';
+import { PrismaService } from '../../../../prisma/prisma.service';
 import { SpaceDeletedEvent } from '../../events/space-deleted.event';
 import { Injectable } from '@nestjs/common';
 

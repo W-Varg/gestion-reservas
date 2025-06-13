@@ -1,26 +1,27 @@
-import { CommandHandler, ICommandHandler, EventBus } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DeleteUserCommand } from '../delete-user.command';
-import { PrismaService } from '../../../../shared/services/prisma.service';
-import { UserDeletedEvent } from '../../events/user-deleted.event';
-import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../../../prisma/prisma.service';
+import { NotFoundException } from '@nestjs/common';
 
-@Injectable()
 @CommandHandler(DeleteUserCommand)
 export class DeleteUserHandler implements ICommandHandler<DeleteUserCommand> {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly eventBus: EventBus,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(command: DeleteUserCommand) {
     const { id } = command;
 
-    const user = await this.prisma.user.delete({
+    const user = await this.prisma.user.findUnique({
       where: { id },
     });
 
-    this.eventBus.publish(new UserDeletedEvent(user));
+    if (!user) {
+      throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+    }
 
-    return user;
+    await this.prisma.user.delete({
+      where: { id },
+    });
+
+    return { message: 'Usuario eliminado correctamente' };
   }
 }

@@ -1,33 +1,20 @@
-import { CommandHandler, ICommandHandler, EventBus } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UpdateReservationStatusCommand } from '../update-reservation-status.command';
-import { PrismaService } from '../../../../shared/services/prisma.service';
-import { ReservationStatusUpdatedEvent } from '../../events/reservation-status-updated.event';
-import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../../../prisma/prisma.service';
+import { ReservationStatus } from '@prisma/client';
 
-@Injectable()
 @CommandHandler(UpdateReservationStatusCommand)
-export class UpdateReservationStatusHandler
-  implements ICommandHandler<UpdateReservationStatusCommand>
-{
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly eventBus: EventBus,
-  ) {}
+export class UpdateReservationStatusHandler implements ICommandHandler<UpdateReservationStatusCommand> {
+  constructor(private readonly prisma: PrismaService) {}
 
   async execute(command: UpdateReservationStatusCommand) {
     const { id, status } = command;
-
     const reservation = await this.prisma.reservation.update({
       where: { id },
-      data: { status },
-      include: {
-        user: true,
-        space: true,
-      },
+      data: { status: status as ReservationStatus },
     });
-
-    this.eventBus.publish(new ReservationStatusUpdatedEvent(reservation));
-
+    // Comentado: publicación de evento si no tienes los datos requeridos
+    // this.eventBus.publish(new ReservationStatusUpdatedEvent(reservation));
     return reservation;
   }
 }

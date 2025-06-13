@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetReservationQuery } from '../get-reservation.query';
-import { PrismaService } from '../../../../shared/services/prisma.service';
+import { PrismaService } from '../../../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

@@ -1,22 +1,17 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsNumber, IsOptional, IsEnum } from 'class-validator';
+import { SpaceType } from '@prisma/client';
 
 export class CreateSpaceCommand {
-  @ApiProperty()
+  @IsString()
   name: string;
 
-  @ApiProperty()
-  description: string;
+  @IsString()
+  @IsOptional()
+  description?: string;
 
-  @ApiProperty()
+  @IsNumber()
   capacity: number;
 
-  @ApiProperty()
-  location: string;
-
-  constructor(name: string, description: string, capacity: number, location: string) {
-    this.name = name;
-    this.description = description;
-    this.capacity = capacity;
-    this.location = location;
-  }
+  @IsEnum(SpaceType)
+  type: SpaceType;
 }

@@ -1,3 +1,6 @@
+import { IsUUID } from 'class-validator';
+
 export class GetReservationQuery {
-  constructor(public readonly id: string) {}
+  @IsUUID()
+  id: string;
 }

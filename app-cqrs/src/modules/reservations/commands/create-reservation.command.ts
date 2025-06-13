@@ -1,9 +1,23 @@
+import { IsUUID, IsDateString, IsNotEmpty } from 'class-validator';
+
 export class CreateReservationCommand {
-  constructor(
-    public readonly userId: string,
-    public readonly spaceId: string,
-    public readonly date: Date,
-    public readonly startTime: Date,
-    public readonly endTime: Date,
-  ) {}
+  @IsUUID()
+  @IsNotEmpty()
+  userId: string;
+
+  @IsUUID()
+  @IsNotEmpty()
+  spaceId: string;
+
+  @IsDateString()
+  @IsNotEmpty()
+  date: string;
+
+  @IsDateString()
+  @IsNotEmpty()
+  startTime: string;
+
+  @IsDateString()
+  @IsNotEmpty()
+  endTime: string;
 }
