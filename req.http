@@ -1,5 +1,5 @@
-@url = http://172.27.38.53:3001
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJzdWIiOiJlNDZiYTVlYS02Nzg4LTRjMzYtOTMxYy04MWM4M2NkY2FkZWMiLCJpYXQiOjE3NDk4NTQ2MTMsImV4cCI6MTc0OTk0MTAxM30.R9LehJyEr8m5PL-vobVTlj7HcYp_W8J36y9GopBw-bI
+@url = http://127.0.0.1:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJzdWIiOiJlNDZiYTVlYS02Nzg4LTRjMzYtOTMxYy04MWM4M2NkY2FkZWMiLCJpYXQiOjE3NDk4NzI1NzcsImV4cCI6MTc0OTk1ODk3N30.5OOqzGoClLVqPM74nFU9x3MnhJXLaT2Xqa9CYt4fn6I
 
 
 ### Register
@@ -8,8 +8,8 @@ curl -X 'POST' \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
   -d '{
-  "email": "test@test.com",
-  "password": "password123",
+  "email": "test@hotmail.com",
+  "password": "password13",
   "name": "John Doe"
 }'
 
@@ -25,7 +25,7 @@ curl -X 'POST' \
 
 ### Get user by id
 curl -X 'GET' \
-  'http://172.27.38.53:3000/auth/profile' \
+  '{{url}}/auth/profile' \
   -H 'accept: */*' \
   -H 'Authorization: Bearer {{token}}'
 
@@ -51,9 +51,9 @@ curl -X 'POST' \
   -H 'Content-Type: application/json' \
   -d '{
   "userId": "e46ba5ea-6788-4c36-931c-81c83cdcadec",
-  "spaceId": "28e6bc6b-f3d9-4f39-9f04-7fa3bc6e4c6c",
-  "startTime": "2025-06-14T10:00:00Z",
-  "endTime": "2025-06-14T11:00:00Z",
+  "spaceId": "bbcd0b1c-71c6-4b4c-9aa6-d5eaa0176449",
+  "startTime": "2026-06-14T10:00:00Z",
+  "endTime": "2026-06-14T11:00:00Z",
   "notes": "Reserva de prueba"
 }
 '
