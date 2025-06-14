@@ -8,7 +8,7 @@ curl -X 'POST' \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
   -d '{
-  "email": "test@hotmail.com",
+  "email": "tedsds@hotmail.com",
   "password": "password13",
   "name": "John Doe"
 }'
@@ -50,10 +50,10 @@ curl -X 'POST' \
   -H 'Authorization: Bearer {{token}}' \
   -H 'Content-Type: application/json' \
   -d '{
-  "userId": "e46ba5ea-6788-4c36-931c-81c83cdcadec",
+  "userId": "81507042-a751-43ae-991b-8a956d51ca11",
   "spaceId": "bbcd0b1c-71c6-4b4c-9aa6-d5eaa0176449",
-  "startTime": "2026-06-14T10:00:00Z",
-  "endTime": "2026-06-14T11:00:00Z",
+  "startTime": "2027-06-14T10:00:00Z",
+  "endTime": "2027-06-14T11:00:00Z",
   "notes": "Reserva de prueba"
 }
 '
