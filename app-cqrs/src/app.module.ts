@@ -15,7 +15,7 @@ import configuration from './common/configurations/configuration';
     ConfigModule.forRoot({ load: [configuration], isGlobal: true }),
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET ?? 'tu_clave_secreta_jwt_muy_segura',
       signOptions: { expiresIn: '1d' },
     }),
     PrismaModule,

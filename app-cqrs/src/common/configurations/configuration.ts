@@ -16,6 +16,6 @@ export default () => {
 
     nodeEnv: process.env.NODE_ENV || 'dev',
     cors: process.env.APP_CORS_ORIGINS ?? '',
-    JWT_SECRET: process.env.JWT_SECRET || 'secretKey',
+    JWT_SECRET: process.env.JWT_SECRET ?? 'tu_clave_secreta_jwt_muy_segura',
   };
 };
