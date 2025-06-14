@@ -4,6 +4,14 @@ import { LoginCommand } from '../commands/login.command';
 import { RegisterCommand } from '../commands/register.command';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { Public } from '../decorators/public.decorator';
+import { Request as ExpressRequest } from 'express';
+
+interface RequestWithUser extends ExpressRequest {
+  user: {
+    id: string;
+    email: string;
+  };
+}
 
 @Controller('auth')
 export class AuthController {
@@ -11,13 +19,13 @@ export class AuthController {
 
   @Public()
   @Post('login')
-  async login(@Body() loginCommand: LoginCommand) {
-    return this.commandBus.execute(loginCommand);
+  login(@Body() loginCommand: LoginCommand) {
+    return this.commandBus.execute(new LoginCommand(loginCommand.email, loginCommand.password));
   }
 
   @Public()
   @Post('register')
-  async register(@Body() registerCommand: RegisterCommand) {
+  register(@Body() registerCommand: RegisterCommand) {
     return this.commandBus.execute(
       new RegisterCommand(registerCommand.email, registerCommand.password, registerCommand.name),
     );
@@ -25,7 +33,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  getProfile(@Request() req: RequestWithUser) {
+    return req?.user;
   }
 }
