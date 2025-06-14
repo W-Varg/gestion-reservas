@@ -1,197 +1,164 @@
-# Sistema de Reservas para Espacios Comunitarios
+# Sistema de Gestión de Reservas - Versión Modular
 
-Este proyecto es un sistema de reservas para espacios comunitarios desarrollado con NestJS y Prisma ORM, siguiendo una arquitectura modular.
+## 📋 Descripción
+Este proyecto implementa un sistema de gestión de reservas para espacios comunitarios utilizando NestJS y una arquitectura modular. Permite a los usuarios gestionar reservas de diferentes espacios como salones, auditorios y canchas.
 
-## Características
+## 🚀 Requisitos Previos
 
-- Registro y gestión de usuarios
-- Gestión de espacios (salones, auditorios, canchas)
-- Sistema de reservas con verificación de disponibilidad
-- Gestión de estados de reservas (pendiente, confirmada, cancelada)
+- Node.js (v18 o superior)
+- npm o yarn
+- Git
 
-## Requisitos
-
-- Node.js (v14 o superior)
-- PostgreSQL
-- Yarn o npm
-
-## Instalación
+## 📥 Instalación
 
 1. Clonar el repositorio:
 ```bash
-git clone <url-del-repositorio>
-cd app-modular
+git clone https://github.com/W-Varg/gestion-reservas.git
+cd gestion-reservas/app-modular
 ```
 
 2. Instalar dependencias:
 ```bash
+# Usando npm
+npm install
+
+# O usando yarn
 yarn install
 ```
 
 3. Configurar variables de entorno:
-Crear un archivo `.env` en la raíz del proyecto con el siguiente contenido:
-```
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/community_spaces?schema=public"
-PORT=3000
+```bash
+# Copiar el archivo de ejemplo
+cp .env.example .env
+
+# Editar el archivo .env con tus configuraciones
 ```
 
-4. Ejecutar las migraciones de la base de datos:
+## 🛠️ Configuración de la Base de Datos
+
+1. Instalar Prisma CLI globalmente (opcional):
+```bash
+npm install -g prisma
+```
+
+2. Generar el cliente de Prisma:
+```bash
+npx prisma generate
+```
+
+3. Ejecutar las migraciones:
 ```bash
 npx prisma migrate dev
 ```
 
-5. Iniciar el servidor:
+## 🏃‍♂️ Ejecución
+
+### Desarrollo
 ```bash
+# Iniciar en modo desarrollo
+npm run start:dev
+
+# O usando yarn
 yarn start:dev
 ```
 
-## Estructura del Proyecto
+### Producción
+```bash
+# Construir la aplicación
+npm run build
 
-```
-src/
-├── modules/
-│   ├── users/           # Módulo de usuarios
-│   ├── spaces/          # Módulo de espacios
-│   └── reservations/    # Módulo de reservas
-├── shared/
-│   └── services/        # Servicios compartidos
-└── app.module.ts        # Módulo principal
+# Iniciar en modo producción
+npm run start:prod
 ```
 
-## API Endpoints
+## 🧪 Pruebas
+
+```bash
+# Ejecutar pruebas unitarias
+npm run test
+
+# Ejecutar pruebas e2e
+npm run test:e2e
+
+# Ejecutar pruebas con cobertura
+npm run test:cov
+```
+
+## 📚 Estructura del Proyecto
+
+```
+app-modular/
+├── src/
+│   ├── modules/
+│   │   ├── users/
+│   │   ├── spaces/
+│   │   ├── reservations/
+│   │   └── notifications/
+│   ├── shared/
+│   └── main.ts
+├── test/
+├── prisma/
+└── package.json
+```
+
+## 🔧 Scripts Disponibles
+
+- `npm run start`: Inicia la aplicación
+- `npm run start:dev`: Inicia la aplicación en modo desarrollo
+- `npm run start:debug`: Inicia la aplicación en modo debug
+- `npm run start:prod`: Inicia la aplicación en modo producción
+- `npm run build`: Compila la aplicación
+- `npm run test`: Ejecuta las pruebas unitarias
+- `npm run test:e2e`: Ejecuta las pruebas e2e
+- `npm run test:cov`: Ejecuta las pruebas con cobertura
+- `npm run lint`: Ejecuta el linter
+- `npm run format`: Formatea el código
+
+## 📦 Dependencias Principales
+
+- NestJS
+- TypeScript
+- Prisma
+- SQLite
+- Jest
+- Class Validator
+- Class Transformer
+
+## 🔍 Endpoints API
 
 ### Usuarios
-- GET /users - Listar usuarios
-- GET /users/:id - Obtener usuario por ID
-- POST /users - Crear usuario
-- PUT /users/:id - Actualizar usuario
-- DELETE /users/:id - Eliminar usuario
+- `POST /users`: Crear usuario
+- `GET /users`: Listar usuarios
+- `GET /users/:id`: Obtener usuario por ID
+- `PUT /users/:id`: Actualizar usuario
+- `DELETE /users/:id`: Eliminar usuario
 
 ### Espacios
-- GET /spaces - Listar espacios
-- GET /spaces/:id - Obtener espacio por ID
-- POST /spaces - Crear espacio
-- PUT /spaces/:id - Actualizar espacio
-- DELETE /spaces/:id - Eliminar espacio
+- `POST /spaces`: Crear espacio
+- `GET /spaces`: Listar espacios
+- `GET /spaces/:id`: Obtener espacio por ID
+- `PUT /spaces/:id`: Actualizar espacio
+- `DELETE /spaces/:id`: Eliminar espacio
 
 ### Reservas
-- GET /reservations - Listar reservas
-- GET /reservations/:id - Obtener reserva por ID
-- POST /reservations - Crear reserva
-- PUT /reservations/:id/status - Actualizar estado de reserva
-- DELETE /reservations/:id - Eliminar reserva
+- `POST /reservations`: Crear reserva
+- `GET /reservations`: Listar reservas
+- `GET /reservations/:id`: Obtener reserva por ID
+- `PUT /reservations/:id`: Actualizar reserva
+- `DELETE /reservations/:id`: Eliminar reserva
 
-## Arquitectura
+## 🤝 Contribución
 
-El proyecto sigue una arquitectura modular donde cada módulo es independiente y contiene sus propios:
-- Controladores
-- Servicios
-- DTOs
-- Entidades
+1. Fork el repositorio
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
 
-## Próximos Pasos
+## 📝 Licencia
 
-- Implementar autenticación y autorización
-- Agregar validación de datos con DTOs
-- Implementar pruebas unitarias
-- Agregar documentación con Swagger
-- Implementar sistema de notificaciones
+Este proyecto está bajo la Licencia MIT.
 
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+## 👥 Autor
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
-
-```bash
-$ yarn install
-```
-
-## Compile and run the project
-
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ yarn install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Wilver Vargas Anagua

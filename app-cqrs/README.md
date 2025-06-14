@@ -1,98 +1,212 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Sistema de Gestión de Reservas - Versión CQRS
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 📋 Descripción
+Este proyecto implementa un sistema de gestión de reservas para espacios comunitarios utilizando NestJS y una arquitectura CQRS (Command Query Responsibility Segregation). Permite a los usuarios gestionar reservas de diferentes espacios como salones, auditorios y canchas, con una clara separación entre operaciones de lectura y escritura.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 Requisitos Previos
 
-## Description
+- Node.js (v18 o superior)
+- npm o yarn
+- Git
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📥 Instalación
 
-## Project setup
-
+1. Clonar el repositorio:
 ```bash
-$ yarn install
+git clone https://github.com/W-Varg/gestion-reservas.git
+cd gestion-reservas/app-cqrs
 ```
 
-## Compile and run the project
-
+2. Instalar dependencias:
 ```bash
-# development
-$ yarn run start
+# Usando npm
+npm install
 
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+# O usando yarn
+yarn install
 ```
 
-## Run tests
-
+3. Configurar variables de entorno:
 ```bash
-# unit tests
-$ yarn run test
+# Copiar el archivo de ejemplo
+cp .env.example .env
 
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+# Editar el archivo .env con tus configuraciones
 ```
 
-## Deployment
+## 🛠️ Configuración de la Base de Datos
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+1. Instalar Prisma CLI globalmente (opcional):
 ```bash
-$ yarn install -g mau
-$ mau deploy
+npm install -g prisma
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+2. Generar el cliente de Prisma:
+```bash
+npx prisma generate
+```
 
-## Resources
+3. Ejecutar las migraciones:
+```bash
+npx prisma migrate dev
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## 🏃‍♂️ Ejecución
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Desarrollo
+```bash
+# Iniciar en modo desarrollo
+npm run start:dev
 
-## Support
+# O usando yarn
+yarn start:dev
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Producción
+```bash
+# Construir la aplicación
+npm run build
 
-## Stay in touch
+# Iniciar en modo producción
+npm run start:prod
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 🧪 Pruebas
 
-## License
+```bash
+# Ejecutar pruebas unitarias
+npm run test
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+# Ejecutar pruebas e2e
+npm run test:e2e
+
+# Ejecutar pruebas con cobertura
+npm run test:cov
+```
+
+## 📚 Estructura del Proyecto
+
+```
+app-cqrs/
+├── src/
+│   ├── modules/
+│   │   ├── users/
+│   │   │   ├── commands/
+│   │   │   │   ├── create-user/
+│   │   │   │   └── update-user/
+│   │   │   ├── queries/
+│   │   │   │   ├── get-user/
+│   │   │   │   └── list-users/
+│   │   │   └── events/
+│   │   │       ├── user-created/
+│   │   │       └── user-updated/
+│   │   ├── spaces/
+│   │   ├── reservations/
+│   │   └── notifications/
+│   ├── shared/
+│   └── main.ts
+├── test/
+├── prisma/
+└── package.json
+```
+
+## 🔧 Scripts Disponibles
+
+- `npm run start`: Inicia la aplicación
+- `npm run start:dev`: Inicia la aplicación en modo desarrollo
+- `npm run start:debug`: Inicia la aplicación en modo debug
+- `npm run start:prod`: Inicia la aplicación en modo producción
+- `npm run build`: Compila la aplicación
+- `npm run test`: Ejecuta las pruebas unitarias
+- `npm run test:e2e`: Ejecuta las pruebas e2e
+- `npm run test:cov`: Ejecuta las pruebas con cobertura
+- `npm run lint`: Ejecuta el linter
+- `npm run format`: Formatea el código
+
+## 📦 Dependencias Principales
+
+- NestJS
+- TypeScript
+- Prisma
+- SQLite
+- Jest
+- Class Validator
+- Class Transformer
+- @nestjs/cqrs
+
+## 🔍 Endpoints API
+
+### Usuarios
+- `POST /users`: Crear usuario (Command)
+- `GET /users`: Listar usuarios (Query)
+- `GET /users/:id`: Obtener usuario por ID (Query)
+- `PUT /users/:id`: Actualizar usuario (Command)
+- `DELETE /users/:id`: Eliminar usuario (Command)
+
+### Espacios
+- `POST /spaces`: Crear espacio (Command)
+- `GET /spaces`: Listar espacios (Query)
+- `GET /spaces/:id`: Obtener espacio por ID (Query)
+- `PUT /spaces/:id`: Actualizar espacio (Command)
+- `DELETE /spaces/:id`: Eliminar espacio (Command)
+
+### Reservas
+- `POST /reservations`: Crear reserva (Command)
+- `GET /reservations`: Listar reservas (Query)
+- `GET /reservations/:id`: Obtener reserva por ID (Query)
+- `PUT /reservations/:id`: Actualizar reserva (Command)
+- `DELETE /reservations/:id`: Eliminar reserva (Command)
+
+## 🏗️ Arquitectura CQRS
+
+### Comandos
+Los comandos representan operaciones de escritura que modifican el estado del sistema:
+```typescript
+export class CreateReservationCommand {
+  constructor(
+    public readonly spaceId: string,
+    public readonly userId: string,
+    public readonly date: Date
+  ) {}
+}
+```
+
+### Queries
+Las queries representan operaciones de lectura que no modifican el estado:
+```typescript
+export class GetSpaceAvailabilityQuery {
+  constructor(
+    public readonly spaceId: string,
+    public readonly date: Date
+  ) {}
+}
+```
+
+### Eventos
+Los eventos se emiten cuando ocurren cambios en el sistema:
+```typescript
+export class ReservationCreatedEvent {
+  constructor(
+    public readonly reservationId: string,
+    public readonly spaceId: string,
+    public readonly userId: string,
+    public readonly date: Date
+  ) {}
+}
+```
+
+## 🤝 Contribución
+
+1. Fork el repositorio
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📝 Licencia
+
+Este proyecto está bajo la Licencia MIT.
+
+## 👥 Autor
+
+Wilver Vargas Anagua
