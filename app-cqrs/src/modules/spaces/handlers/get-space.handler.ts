@@ -8,13 +8,12 @@ export class GetSpaceHandler implements IQueryHandler<GetSpaceQuery> {
   constructor(private readonly prisma: PrismaService) {}
 
   async execute(query: GetSpaceQuery) {
-    const { id } = query;
     const space = await this.prisma.space.findUnique({
-      where: { id },
+      where: { id: query.id },
     });
 
     if (!space) {
-      throw new NotFoundException(`Espacio con ID ${id} no encontrado`);
+      throw new NotFoundException(`Espacio con ID ${query.id} no encontrado`);
     }
 
     return space;

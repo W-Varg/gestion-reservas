@@ -50,7 +50,7 @@ export class SpacesController {
   @ApiResponse({ status: 200, description: 'Espacio encontrado' })
   @ApiResponse({ status: 404, description: 'Espacio no encontrado' })
   findOne(@Param('id') id: string) {
-    return this.queryBus.execute(new GetSpaceQuery());
+    return this.queryBus.execute(new GetSpaceQuery(id));
   }
 
   @Get()

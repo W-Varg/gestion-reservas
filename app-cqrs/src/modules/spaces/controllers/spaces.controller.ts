@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nes
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateSpaceCommand } from '../commands/create-space.command';
 import { GetSpaceQuery } from '../queries/get-space.query';
+import { GetAllSpacesQuery } from '../queries/get-all-spaces.query';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
@@ -19,7 +20,7 @@ export class SpacesController {
   @ApiOperation({ summary: 'Obtener todos los espacios' })
   @ApiResponse({ status: 200, description: 'Lista de espacios' })
   findAll() {
-    return this.queryBus.execute(new GetSpaceQuery());
+    return this.queryBus.execute(new GetAllSpacesQuery());
   }
 
   @Get(':id')
@@ -27,7 +28,7 @@ export class SpacesController {
   @ApiResponse({ status: 200, description: 'Espacio encontrado' })
   @ApiResponse({ status: 404, description: 'Espacio no encontrado' })
   findOne(@Param('id') id: string) {
-    return this.queryBus.execute(new GetSpaceQuery());
+    return this.queryBus.execute(new GetSpaceQuery(id));
   }
 
   @Post()
@@ -35,7 +36,7 @@ export class SpacesController {
   @ApiResponse({ status: 201, description: 'Espacio creado' })
   @ApiResponse({ status: 400, description: 'Datos inválidos' })
   create(@Body() createSpaceDto: CreateSpaceCommand) {
-    return this.commandBus.execute(new CreateSpaceCommand());
+    return this.commandBus.execute(createSpaceDto);
   }
 
   @Put(':id')
