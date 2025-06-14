@@ -3,11 +3,12 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { PrismaModule } from '../../prisma/prisma.module';
 import { ReservationsController } from './controllers/reservations.controller';
 import { CreateReservationHandler } from './handlers/create-reservation.handler';
-import { GetReservationHandler } from './handlers/get-reservation.handler';
+
+const CommandHandlers = [CreateReservationHandler];
 
 @Module({
   imports: [CqrsModule, PrismaModule],
   controllers: [ReservationsController],
-  providers: [CreateReservationHandler, GetReservationHandler],
+  providers: [...CommandHandlers],
 })
 export class ReservationsModule {}
